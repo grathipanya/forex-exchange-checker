@@ -23,6 +23,9 @@ function App() {
     <>
       <Header />
       <h1 className="text-3xl font-bold underline">Clean app</h1>
+      <h1 className="font-display text-preset-1-tablet md:text-preset-1 font-bold">
+        The quick brown fox jumps over the lazy dog.
+      </h1>
       {error && <p className="text-red-500">{error}</p>}
       {/* {latestRateData && <pre>{latestRateData}</pre>} */}
     </>
