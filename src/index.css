@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./assets/jetbrains-mono/jetbrains-mono-variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+}
+
 @theme {
   /*** FONTS ***/
   --font-display: "JetBrains Mono", monospace;
@@ -11,6 +19,7 @@
 
   /* Line Heights */
   --leading-preset-1: 1;
+  --leading-preset-100: 1;
   --leading-preset-110: 1.1;
   --leading-preset-120: 1.2;
   --leading-preset-130: 1.3;
@@ -75,69 +84,103 @@
 
 /* Typography Tokens */
 
-@utility text-preset-1 {
-  font-size: 2.5rem;
-  line-height: var(--leading-preset-1);
-  letter-spacing: var(--tracking-preset-tight);
-}
-@utility text-preset-1-tablet {
-  font-size: 2rem;
-  line-height: var(--leading-preset-1);
-  letter-spacing: var(--tracking-preset-tight);
+@layer base {
+  html,
+  body {
+    font-family: var(--font-display);
+  }
 }
 
-@utility text-preset-2 {
-  font-size: 1.25rem;
-  line-height: var(--leading-preset-120);
-  letter-spacing: var(--tracking-preset-tight);
-}
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
 
-@utility text-preset-2-bold {
-  font-size: 1.25rem;
-  line-height: var(--leading-preset-120);
-  letter-spacing: var(--tracking-preset-tight);
-  font-weight: bold;
-}
+  .text-preset-1 {
+    font-size: 2.5rem;
+    line-height: var(--leading-preset-1);
+    letter-spacing: var(--tracking-preset-tight);
+  }
 
-@utility text-preset-3 {
-  font-size: 1rem;
-  line-height: var(--leading-preset-120);
-  letter-spacing: var(--tracking-preset-wide);
-}
+  .text-preset-1-tablet {
+    font-size: 2rem;
+    line-height: var(--leading-preset-1);
+    letter-spacing: var(--tracking-preset-tight);
+  }
 
-@utility text-preset-3-medium {
-  font-size: 1rem;
-  line-height: var(--leading-preset-120);
-  letter-spacing: var(--tracking-preset-wide);
-}
+  .text-preset-2 {
+    font-size: 1.25rem;
+    line-height: var(--leading-preset-120);
+    letter-spacing: var(--tracking-preset-tight);
+  }
 
-@utility text-preset-3-bold {
-  font-size: 1rem;
-  line-height: var(--leading-preset-110);
-  letter-spacing: var(--tracking-preset-wide);
-  font-weight: bold;
-}
+  .text-preset-2-bold {
+    font-size: 1.25rem;
+    line-height: var(--leading-preset-120);
+    letter-spacing: var(--tracking-preset-tight);
+    font-weight: bold;
+  }
 
-@utility text-preset-4 {
-  font-size: 0.875rem;
-  line-height: var(--leading-preset-120);
-  letter-spacing: var(--tracking-preset-wide);
-}
+  .text-preset-3 {
+    font-size: 1rem;
+    line-height: var(--leading-preset-120);
+    letter-spacing: var(--tracking-preset-wide);
+  }
 
-@utility text-preset-5 {
-  font-size: 0.75rem;
-  line-height: var(--leading-preset-130);
-  letter-spacing: var(--tracking-preset-tight);
-}
+  .text-preset-3-medium {
+    font-size: 1rem;
+    line-height: var(--leading-preset-120);
+    letter-spacing: var(--tracking-preset-wide);
+  }
 
-@utility text-preset-5-medium {
-  font-size: 0.75rem;
-  line-height: var(--leading-preset-130);
-  letter-spacing: var(--tracking-preset-tight);
-}
+  .text-preset-3-bold {
+    font-size: 1rem;
+    line-height: var(--leading-preset-110);
+    letter-spacing: var(--tracking-preset-wide);
+    font-weight: bold;
+  }
 
-@utility text-preset-6 {
-  font-size: 0.625rem;
-  line-height: var(--leading-preset-100);
-  letter-spacing: var(--tracking-preset-normal);
+  .text-preset-4 {
+    font-size: 0.875rem;
+    line-height: var(--leading-preset-120);
+    letter-spacing: var(--tracking-preset-wide);
+  }
+
+  .text-preset-5 {
+    font-size: 0.75rem;
+    line-height: var(--leading-preset-130);
+    letter-spacing: var(--tracking-preset-tight);
+  }
+
+  .text-preset-5-medium {
+    font-size: 0.75rem;
+    line-height: var(--leading-preset-130);
+    letter-spacing: var(--tracking-preset-tight);
+  }
+
+  .text-preset-6 {
+    font-size: 0.625rem;
+    line-height: var(--leading-preset-100);
+    letter-spacing: var(--tracking-preset-normal);
+  }
+
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 20s linear infinite;
+    will-change: transform;
+  }
+
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes ticker-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
