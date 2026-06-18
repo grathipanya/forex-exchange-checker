@@ -7,11 +7,12 @@ export type MarketTickerItemProps = {
     quote: string;
   };
   rate: number;
-  difference: number;
+  difference: string;
 };
 
 const MarketTickerItem = ({ currencyPair, rate, difference }: MarketTickerItemProps) => {
-  const isPositive = difference >= 0;
+  const isPositive = parseFloat(difference) >= 0;
+  console.log(isPositive, difference);
   const differenceIcon = isPositive ? "▲" : "▼";
   const differenceColor = isPositive ? "text-green-500" : "text-red-500";
   return (

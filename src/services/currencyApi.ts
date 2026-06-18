@@ -1,8 +1,8 @@
-import type { Rate } from "@/types/currency";
+import type { Currency, Rate } from "@/types/currency";
 
 const DEFAULT_BASE_URL = "https://api.frankfurter.dev/v2/";
 
-export const currencyApi = {
+export const ratesApi = {
   async getExchangeRates(): Promise<Rate[]> {
     const response = await fetch(`${DEFAULT_BASE_URL}rates`);
     return response.json();
@@ -39,6 +39,13 @@ export const currencyApi = {
     const response = await fetch(
       `${DEFAULT_BASE_URL}rates?date=${date}&base=${base}&quotes=${quotes.join(",")}`,
     );
+    return response.json();
+  },
+};
+
+export const currenciesApi = {
+  async getCurrencies(): Promise<Currency[]> {
+    const response = await fetch(`${DEFAULT_BASE_URL}currencies?scope=all`);
     return response.json();
   },
 };
