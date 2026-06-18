@@ -7,13 +7,13 @@ const MarketTicker = () => {
 
   // TODO REMOVE TEST DATA
   const fallbackRates = [
-    { base: "USD", quote: "JPY", rate: 150.25, difference: -0.5 },
-    { base: "GBP", quote: "USD", rate: 1.25, difference: 0.2 },
-    { base: "USD", quote: "CHF", rate: 0.92, difference: -0.1 },
-    { base: "EUR", quote: "GBP", rate: 0.85, difference: 0.3 },
-    { base: "AUD", quote: "USD", rate: 0.75, difference: -0.4 },
-    { base: "USD", quote: "CAD", rate: 1.3, difference: 0.1 },
-    { base: "EUR", quote: "JPY", rate: 130.5, difference: -0.2 },
+    { base: "USD", quote: "JPY", rate: 150.25, difference: "-0.5" },
+    { base: "GBP", quote: "USD", rate: 1.25, difference: "+0.2" },
+    { base: "USD", quote: "CHF", rate: 0.92, difference: "-0.1" },
+    { base: "EUR", quote: "GBP", rate: 0.85, difference: "+0.3" },
+    { base: "AUD", quote: "USD", rate: 0.75, difference: "-0.4" },
+    { base: "USD", quote: "CAD", rate: 1.3, difference: "+0.1" },
+    { base: "EUR", quote: "JPY", rate: 130.5, difference: "-0.2" },
   ];
 
   const tickerRates = compareRates.length ? compareRates : fallbackRates;

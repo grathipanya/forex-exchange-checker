@@ -1,5 +1,5 @@
 import { Label } from "@/components/atoms/label";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/cn";
 
 export type MarketTickerItemProps = {
   currencyPair: {
@@ -20,7 +20,7 @@ const MarketTickerItem = ({ currencyPair, rate, difference }: MarketTickerItemPr
         {currencyPair.base}/{currencyPair.quote}
       </div>
       <div className="text-preset-5 text-neutral-50">{rate}</div>
-      <div className={twMerge("text-preset-5", differenceColor)}>
+      <div className={cn("text-preset-5", differenceColor)}>
         {differenceIcon} {difference}%
       </div>
     </Label>
