@@ -28,7 +28,8 @@ const Button = ({
         "flex items-center justify-center uppercase bg-neutral-500 p-2.5 rounded-8 border border-neutral-400 hover:bg-neutral-400 focus:outline-2 focus:outline-lime-500 outline-offset-3 hover:cursor-pointer",
         className,
       )}
-      {...props}>
+      {...props}
+    >
       {icon}
       {text}
     </button>

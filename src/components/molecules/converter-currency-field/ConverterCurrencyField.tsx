@@ -9,12 +9,20 @@ import { useRef, useState } from "react";
 export type ConverterCurrencyFieldProps = {
   label: "Send" | "Receive";
   availableCurrencies: CurrencyPickerModalProps["availableCurrencies"];
+  selectedCurrency: CurrencyPickerModalProps["selectedCurrency"];
+  setSelectedCurrency: (
+    currency: CurrencyPickerModalProps["selectedCurrency"],
+  ) => void;
 };
 
-const ConverterCurrencyField = ({ label, availableCurrencies }: ConverterCurrencyFieldProps) => {
+const ConverterCurrencyField = ({
+  label,
+  availableCurrencies,
+  selectedCurrency,
+  setSelectedCurrency,
+}: ConverterCurrencyFieldProps) => {
   const [pos, setPos] = useState({ top: 0, right: 0 });
   const [modalOpen, setModalOpen] = useState(false);
-  const [currency, setCurrency] = useState(availableCurrencies[0]?.iso_code || "AED");
 
   const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -23,18 +31,18 @@ const ConverterCurrencyField = ({ label, availableCurrencies }: ConverterCurrenc
       <CardWithTitle
         title={label}
         titleLocation="inside"
-        className="bg-neutral-600 w-full">
+        className="bg-neutral-600 w-full"
+      >
         <div className="flex flex-row justify-between items-baseline">
           <Label className="text-preset-1 text-neutral-200">0</Label>
-          <div
-            className="relative inline-block"
-            ref={buttonRef}>
+          <div className="relative inline-block" ref={buttonRef}>
             <CurrencyPicker
-              selectedCurrency={currency}
+              selectedCurrency={selectedCurrency}
               selectedCountryCode={
-                availableCurrencies.find((c) => c.iso_code === currency)?.country_code || "AED"
+                availableCurrencies.find((c) => c.iso_code === selectedCurrency)
+                  ?.country_code || "AED"
               }
-              onCurrencyChange={setCurrency}
+              onCurrencyChange={setSelectedCurrency}
               availableCurrencies={availableCurrencies}
               onOpen={() => {
                 if (buttonRef.current) {
@@ -50,8 +58,8 @@ const ConverterCurrencyField = ({ label, availableCurrencies }: ConverterCurrenc
               }}
             />
             <CurrencyPickerModal
-              selectedCurrency={currency}
-              onCurrencyChange={setCurrency}
+              selectedCurrency={selectedCurrency}
+              onCurrencyChange={setSelectedCurrency}
               availableCurrencies={availableCurrencies}
               isOpen={modalOpen}
               position={pos}
