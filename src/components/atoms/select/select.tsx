@@ -11,10 +11,8 @@ export type SelectProps = {
 };
 
 const Select = ({ options, value, onChange }: SelectProps) => {
-  console.log(value, options);
-  return (
-    <div></div>
-  );
+  //   console.log(value, options);
+  return <div>hello</div>;
 };
 
 export default Select;

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  background-color: var(--color-neutral-900);
+}
+
 @font-face {
   font-family: "JetBrains Mono";
   src: url("./assets/jetbrains-mono/jetbrains-mono-variable.ttf") format("truetype");
