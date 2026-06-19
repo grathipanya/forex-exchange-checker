@@ -1,7 +1,7 @@
 import { useAllCurrencyData } from "@/hooks/useCurrencyData";
 
 export const useConverterData = () => {
-  const { currencyData, error } = useAllCurrencyData();
+  const { currencyData } = useAllCurrencyData();
 
   const availableCurrencies =
     currencyData?.map((currency) => ({

@@ -4,9 +4,9 @@ import IconChevronDown from "@/assets/images/icon-chevron-down.svg";
 import type { Currency } from "@/types/currency";
 
 export type CurrencyPickerProps = {
-  selectedCurrency: string;
+  selectedCurrency: Currency["iso_code"];
   selectedCountryCode: string;
-  onCurrencyChange: (currency: string) => void;
+  onCurrencyChange: (currency: Currency["iso_code"]) => void;
   //iso code is AUD, USD, JPY | country_code is iso_code minus the currency, e.g AU, US, JP
   availableCurrencies: {
     iso_code: Currency["iso_code"];
@@ -44,7 +44,6 @@ const CurrencyPicker = ({ selectedCurrency, selectedCountryCode, onOpen }: Curre
           </>
         }
         onClick={onOpen}
-        // onBlur={onOpen}
       />
     </>
   );

@@ -1,13 +1,14 @@
 import type { Currency } from "@/types/currency";
 import { SearchInput } from "../search-input";
 import { useState } from "react";
-import Label from "@/components/atoms/label/Label";
-import CurrencyPickerListItem from "../currency-picker-list-item/CurrencyPickerListItem";
+import { Label } from "@/components/atoms/label";
+import { CurrencyPickerListItem } from "@/components/molecules/currency-picker-list-item/";
 
 export type CurrencyPickerModalProps = {
-  selectedCurrency: string;
-  onCurrencyChange: (currency: string) => void;
-  //iso code is AUD, USD, JPY | country_code is iso_code minus the currency, e.g AU, US, JP
+  selectedCurrency: Currency["iso_code"];
+  onCurrencyChange: (currency: Currency["iso_code"]) => void;
+  //iso code is AUD, USD, JPY
+  // country_code is iso_code minus the currency, e.g AU, US, JP
   availableCurrencies: {
     iso_code: Currency["iso_code"];
     country_code: string;
@@ -35,7 +36,7 @@ const CurrencyPickerModal = ({
     <>
       {isOpen && (
         <div
-          className="fixed z-[9999] bg-neutral-600 p-2 rounded-6 border border-neutral-400 mt-2"
+          className="fixed z-9999 bg-neutral-600 p-2 rounded-6 border border-neutral-400 mt-2"
           style={{
             top: position.top,
             right: position.right,
@@ -45,10 +46,17 @@ const CurrencyPickerModal = ({
             label={"Search currencies..."}
             onChange={(value: string) => setSearchInput(value)}
           />
-          <div>
+          <div className="flex flex-col overflow-y-scroll max-h-50">
             {popularCurrencies && <Label>popularCurrencies</Label>}
-            {/* <CurrencyPickerListItem /> */}
             {otherCurrencies && <Label>otherCurrencies</Label>}
+            {availableCurrencies.map((currency, key) => (
+              <CurrencyPickerListItem
+                key={key}
+                currency={currency}
+                selectedCurrency={selectedCurrency}
+                setSelectedCurrency={(selected) => onCurrencyChange(selected)}
+              />
+            ))}
           </div>
         </div>
       )}

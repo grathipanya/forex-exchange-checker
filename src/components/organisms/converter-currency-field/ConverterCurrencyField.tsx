@@ -1,16 +1,14 @@
 import { Label } from "@/components/atoms/label";
 import { CardWithTitle } from "@/components/molecules/card-with-title";
 import { CurrencyPicker } from "@/components/molecules/currency-picker";
-import CurrencyPickerModal from "@/components/molecules/currency-picker-modal/CurrencyPickerModal";
+import CurrencyPickerModal, {
+  type CurrencyPickerModalProps,
+} from "@/components/molecules/currency-picker-modal/CurrencyPickerModal";
 import { useRef, useState } from "react";
 
 export type ConverterCurrencyFieldProps = {
   label: "Send" | "Receive";
-  availableCurrencies: {
-    iso_code: string;
-    country_code: string;
-    name: string;
-  }[];
+  availableCurrencies: CurrencyPickerModalProps["availableCurrencies"];
 };
 
 const ConverterCurrencyField = ({ label, availableCurrencies }: ConverterCurrencyFieldProps) => {
