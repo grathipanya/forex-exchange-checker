@@ -46,7 +46,7 @@ const CurrencyPickerModal = ({
             label={"Search currencies..."}
             onChange={(value: string) => setSearchInput(value)}
           />
-          <div className="flex flex-col overflow-y-scroll max-h-50">
+          <div className="flex flex-col overflow-y-scroll max-h-75 no-scrollbar">
             {popularCurrencies && <Label>popularCurrencies</Label>}
             {otherCurrencies && <Label>otherCurrencies</Label>}
             {availableCurrencies.map((currency, key) => (

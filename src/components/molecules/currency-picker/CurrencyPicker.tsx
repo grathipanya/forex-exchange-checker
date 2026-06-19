@@ -22,7 +22,7 @@ const CurrencyPicker = ({ selectedCurrency, selectedCountryCode, onOpen }: Curre
       <Button
         className=""
         text={
-          <>
+          <div className="flex items-center gap-2">
             {selectedCurrency && (
               <Image
                 src={
@@ -35,13 +35,16 @@ const CurrencyPicker = ({ selectedCurrency, selectedCountryCode, onOpen }: Curre
                 className="w-5 h-5 inline-block mr-1"
               />
             )}
-            {!selectedCurrency ? "Select currency" : selectedCurrency}
+            <div className="text-preset-4 text-neutral-50">
+              {!selectedCurrency ? "Select currency" : selectedCurrency}
+            </div>
+
             <Image
               className="w-4 h-4 inline-block ml-1"
               src={IconChevronDown}
               alt="Chevron Down"
             />
-          </>
+          </div>
         }
         onClick={onOpen}
       />
