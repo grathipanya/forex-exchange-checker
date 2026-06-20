@@ -1,4 +1,4 @@
-import { Label } from "@/components/atoms/label";
+import { EditLabel } from "@/components/atoms/label";
 import { CardWithTitle } from "@/components/molecules/card-with-title";
 import { CurrencyPicker } from "@/components/molecules/currency-picker";
 import CurrencyPickerModal, {
@@ -34,7 +34,7 @@ const ConverterCurrencyField = ({
         className="bg-neutral-600 w-full"
       >
         <div className="flex flex-row justify-between items-baseline">
-          <Label className="text-preset-1 text-neutral-200">0</Label>
+          <EditLabel className="text-preset-1 text-neutral-200">0</EditLabel>
           <div className="relative inline-block" ref={buttonRef}>
             <CurrencyPicker
               selectedCurrency={selectedCurrency}

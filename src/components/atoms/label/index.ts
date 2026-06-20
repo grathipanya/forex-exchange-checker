@@ -1,3 +1,3 @@
-import Label, { type LabelProps } from "./Label";
+import { Label, EditLabel, type LabelProps } from "./Label";
 
-export { Label, type LabelProps };
+export { Label, EditLabel, type LabelProps };

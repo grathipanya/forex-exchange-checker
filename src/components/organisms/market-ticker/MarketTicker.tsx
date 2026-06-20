@@ -1,4 +1,4 @@
-import Label from "@/components/atoms/label/Label";
+import { Label } from "@/components/atoms/label/";
 import { useMarketTickerData } from "./useMarketTickerData";
 import { MarketTickerItem } from "@/components/molecules/market-ticker-item";
 
