@@ -97,15 +97,27 @@ const CurrencyPickerModal = ({
                 <Label>{loadedOtherCurrenciesCount}</Label>
               </div>
             )}
-            {otherCurrencies.map((currency, key) => (
-              <CurrencyPickerListItem
-                key={key}
-                currency={currency}
-                selectedCurrency={selectedCurrency}
-                setSelectedCurrency={(selected) => onCurrencyChange(selected)}
-                onImageStatusChange={handleImageStatusChange}
-              />
-            ))}
+            {otherCurrencies
+              .map((currency, key) => (
+                <CurrencyPickerListItem
+                  key={key}
+                  currency={currency}
+                  selectedCurrency={selectedCurrency}
+                  setSelectedCurrency={(selected) => onCurrencyChange(selected)}
+                  onImageStatusChange={handleImageStatusChange}
+                />
+              ))
+              .filter((c) => {
+                if (!searchInput) return true;
+                const searchTerm = searchInput.toLowerCase();
+                const searchMatchesIsoCode = c.props.currency.iso_code
+                  .toLowerCase()
+                  .includes(searchTerm);
+                const searchMatchesName = c.props.currency.name
+                  .toLowerCase()
+                  .includes(searchTerm);
+                return searchMatchesIsoCode || searchMatchesName;
+              })}
           </div>
         </div>
       )}
