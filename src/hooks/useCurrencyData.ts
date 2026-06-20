@@ -24,7 +24,9 @@ export const useLatestExchangeRateData = () => {
 };
 
 export const useHistoricalExchangeRateData = (date: DateTimeString) => {
-  const [latestHistoricalRateData, setLatestHistoricalRateData] = useState<Rate[] | null>(null);
+  const [latestHistoricalRateData, setLatestHistoricalRateData] = useState<
+    Rate[] | null
+  >(null);
   const [error, setError] = useState<string>("");
 
   const formattedDate = formatDateToYYYYMMDD(new Date(date));
@@ -32,7 +34,8 @@ export const useHistoricalExchangeRateData = (date: DateTimeString) => {
   useEffect(() => {
     async function fetchRateData() {
       try {
-        const response = await ratesApi.getHistoricalExchangeRates(formattedDate);
+        const response =
+          await ratesApi.getHistoricalExchangeRates(formattedDate);
         setLatestHistoricalRateData(response);
       } catch (err) {
         setError(`Failed to fetch data: ${err}`);
@@ -45,7 +48,11 @@ export const useHistoricalExchangeRateData = (date: DateTimeString) => {
 };
 
 // Change the base currency with base.
-export const useCurrencyExchangeBaseData = ({ baseCurrency }: { baseCurrency: string }) => {
+export const useCurrencyExchangeBaseData = ({
+  baseCurrency,
+}: {
+  baseCurrency: string;
+}) => {
   const [latestRateData, setLatestRateData] = useState<Rate[] | null>(null);
   const [error, setError] = useState<string>("");
 
@@ -65,13 +72,14 @@ export const useCurrencyExchangeBaseData = ({ baseCurrency }: { baseCurrency: st
 };
 
 // Change the base currency with base.
+export type UseCurrencyExchangeBaseAndQuoteDataParams = {
+  baseCurrency: string;
+  quoteCurrency: string | string[];
+};
 export const useExchangeRatesByBaseAndQuote = ({
   baseCurrency,
   quoteCurrency,
-}: {
-  baseCurrency: string;
-  quoteCurrency: string[];
-}) => {
+}: UseCurrencyExchangeBaseAndQuoteDataParams) => {
   const [latestRateData, setLatestRateData] = useState<Rate[] | null>(null);
   const [error, setError] = useState<string>("");
 
@@ -102,7 +110,9 @@ export const useHistoricalExchangeRatesByBaseAndQuote = ({
   base: string;
   quotes: string[];
 }) => {
-  const [latestHistoricalRateData, setLatestHistoricalRateData] = useState<Rate[] | null>(null);
+  const [latestHistoricalRateData, setLatestHistoricalRateData] = useState<
+    Rate[] | null
+  >(null);
   const [error, setError] = useState<string>("");
 
   const formattedDate = formatDateToYYYYMMDD(new Date(date));
@@ -110,11 +120,12 @@ export const useHistoricalExchangeRatesByBaseAndQuote = ({
   useEffect(() => {
     async function fetchRateData() {
       try {
-        const response = await ratesApi.getHistoricalExchangeRatesByBaseAndQuote({
-          date: formattedDate,
-          base,
-          quotes,
-        });
+        const response =
+          await ratesApi.getHistoricalExchangeRatesByBaseAndQuote({
+            date: formattedDate,
+            base,
+            quotes,
+          });
         setLatestHistoricalRateData(response);
       } catch (err) {
         setError(`Failed to fetch data: ${err}`);

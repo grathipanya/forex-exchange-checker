@@ -1,9 +1,11 @@
 import { cn } from "@/utils/cn";
-import { useState, type PropsWithChildren } from "react";
+import type { ChangeEventHandler, PropsWithChildren } from "react";
 
 export type LabelProps = PropsWithChildren<{
   text?: string;
   className?: string;
+  value?: number | string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }>;
 
 const Label = ({ children, className }: LabelProps) => {
@@ -16,12 +18,12 @@ const Label = ({ children, className }: LabelProps) => {
   );
 };
 
-const EditLabel = ({ children, className }: LabelProps) => {
-  const [value, setValue] = useState(children as string);
+const EditLabel = ({ children, className, value, onChange }: LabelProps) => {
   return (
     <input
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
+      value={value ?? (children as string) ?? ""}
+      defaultValue={0}
+      onChange={onChange}
       className={cn("text-preset-5 text-neutral-50 w-50", className)}
     />
   );

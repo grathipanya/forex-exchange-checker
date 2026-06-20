@@ -4,12 +4,15 @@ import { CurrencyPicker } from "@/components/molecules/currency-picker";
 import CurrencyPickerModal, {
   type CurrencyPickerModalProps,
 } from "@/components/molecules/currency-picker-modal/CurrencyPickerModal";
+import { cn } from "@/utils/cn";
 import { useRef, useState } from "react";
 
 export type ConverterCurrencyFieldProps = {
   label: "Send" | "Receive";
   availableCurrencies: CurrencyPickerModalProps["availableCurrencies"];
   selectedCurrency: CurrencyPickerModalProps["selectedCurrency"];
+  amount: number | string;
+  setAmount: (amount: string) => void;
   setSelectedCurrency: (
     currency: CurrencyPickerModalProps["selectedCurrency"],
   ) => void;
@@ -19,12 +22,16 @@ const ConverterCurrencyField = ({
   label,
   availableCurrencies,
   selectedCurrency,
+  amount,
+  setAmount,
   setSelectedCurrency,
 }: ConverterCurrencyFieldProps) => {
   const [pos, setPos] = useState({ top: 0, right: 0 });
   const [modalOpen, setModalOpen] = useState(false);
 
   const buttonRef = useRef<HTMLDivElement>(null);
+
+  const valueLabelStyle = label === "Receive" ? "text-lime-500" : "";
 
   return (
     <div className="relative w-full">
@@ -34,7 +41,13 @@ const ConverterCurrencyField = ({
         className="bg-neutral-600 w-full"
       >
         <div className="flex flex-row justify-between items-baseline">
-          <EditLabel className="text-preset-1 text-neutral-200">0</EditLabel>
+          <EditLabel
+            className={cn("text-preset-1 text-neutral-200", valueLabelStyle)}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          >
+            {amount}
+          </EditLabel>
           <div className="relative inline-block" ref={buttonRef}>
             <CurrencyPicker
               selectedCurrency={selectedCurrency}

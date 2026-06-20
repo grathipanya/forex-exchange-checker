@@ -16,7 +16,11 @@ export type CurrencyPickerProps = {
   onOpen: () => void;
 };
 
-const CurrencyPicker = ({ selectedCurrency, selectedCountryCode, onOpen }: CurrencyPickerProps) => {
+const CurrencyPicker = ({
+  selectedCurrency,
+  selectedCountryCode,
+  onOpen,
+}: CurrencyPickerProps) => {
   return (
     <>
       <Button

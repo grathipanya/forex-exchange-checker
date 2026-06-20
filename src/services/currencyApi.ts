@@ -16,10 +16,10 @@ export const ratesApi = {
     quotes,
   }: {
     base: string;
-    quotes: string[];
+    quotes: string | string[];
   }): Promise<Rate[]> {
     const response = await fetch(
-      `${DEFAULT_BASE_URL}rates?base=${base}&quotes=${quotes.join(",")}`,
+      `${DEFAULT_BASE_URL}rates?base=${base}&quotes=${Array.isArray(quotes) ? quotes.join(",") : quotes}`,
     );
     return response.json();
   },
