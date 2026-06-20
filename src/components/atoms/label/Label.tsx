@@ -10,11 +10,9 @@ export type LabelProps = PropsWithChildren<{
 
 const Label = ({ children, className }: LabelProps) => {
   return (
-    <label
-      className={cn("inline-flex items-center gap-1.5 uppercase", className)}
-    >
+    <p className={cn("inline-flex items-center gap-1.5 uppercase", className)}>
       {children}
-    </label>
+    </p>
   );
 };
 
