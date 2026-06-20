@@ -1,18 +1,19 @@
 import IconExchange from "@/assets/images/icon-exchange.svg";
-import Button from "@/components/atoms/button/button";
 import { CardWithTitle } from "@/components/molecules/card-with-title";
 import { useConverterData } from "./useConverterData";
 import { ConverterCurrencyField } from "@/components/molecules/converter-currency-field";
 import { useState } from "react";
 import type { Currency } from "@/types/currency";
 import { ButtonIcon } from "@/components/molecules/button-icon";
-import { Label } from "@/components/atoms/label";
+import { ConverterFooter } from "@/components/molecules/converter-footer"; // 1. Import new molecule
 
 const Converter = () => {
+  // TODO add local states to track favourite pairs and conversion log
+  // Currently just default to false
+  const [isFavourite, setIsFavourite] = useState(false);
   const [sendCurrency, setSendCurrency] = useState<Currency["iso_code"]>("AED");
   const [receiveCurrency, setReceiveCurrency] =
     useState<Currency["iso_code"]>("AED");
-
   const [sendAmount, setSendAmount] = useState("0");
   const [receiveAmount, setReceiveAmount] = useState("0");
   const [lastEditedAmount, setLastEditedAmount] = useState<
@@ -32,9 +33,9 @@ const Converter = () => {
   });
 
   const displayedSendAmount =
-    lastEditedAmount != "send" ? receiveToSend : sendAmount;
+    lastEditedAmount !== "send" ? receiveToSend : sendAmount;
   const displayedReceiveAmount =
-    lastEditedAmount != "receive" ? sendToReceive : receiveAmount;
+    lastEditedAmount !== "receive" ? sendToReceive : receiveAmount;
 
   const handleSwap = () => {
     setLastEditedAmount("swap");
@@ -45,7 +46,6 @@ const Converter = () => {
   };
 
   const handleSendAmountChange = (amount: string) => {
-    console.log("send amount: ", amount);
     setLastEditedAmount("send");
     setSendAmount(amount);
     setReceiveAmount((parseFloat(amount) * exchangeRate).toFixed(2));
@@ -53,25 +53,22 @@ const Converter = () => {
 
   const handleReceiveAmountChange = (amount: string) => {
     setLastEditedAmount("receive");
-    console.log("receive amount: ", amount);
     setReceiveAmount(amount);
     setSendAmount((parseFloat(amount) / exchangeRate).toString());
   };
 
-  const footer = () => (
-    <div className="flex flex-row justify-between items-center">
-      <Label className="text-preset-5 text-neutral-50">
-        {exchangeRateInfo}
-      </Label>
-      <div className="flex flex-row gap-3">
-        <Button text="Favourite" />
-        <Button text="Log Conversion" />
-      </div>
-    </div>
-  );
-
   return (
-    <CardWithTitle title="CHECK THE RATE" footer={footer()}>
+    <CardWithTitle
+      title="CHECK THE RATE"
+      footer={
+        <ConverterFooter
+          exchangeRateInfo={exchangeRateInfo}
+          isFavourite={isFavourite}
+          onFavouriteToggle={() => setIsFavourite(!isFavourite)}
+          onLogConversion={() => console.log("Logged")}
+        />
+      }
+    >
       {/* Send */}
       <div className="flex flex-row justify-between items-center gap-6">
         <ConverterCurrencyField

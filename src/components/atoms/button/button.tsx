@@ -6,7 +6,7 @@ export type ButtonProps = {
   onBlur?: () => void;
   icon?: React.ReactNode;
   className?: string;
-  size?: "primary" | "secondary";
+  size?: "thin" | "regular" | "large";
   variant?: "default" | "outline" | "filled" | "text" | "ghost";
 };
 
@@ -16,7 +16,7 @@ const Button = ({
   onBlur,
   icon,
   className,
-  size = "primary",
+  size = "regular",
   variant = "default",
   ...props
 }: ButtonProps) => {
