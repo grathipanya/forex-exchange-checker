@@ -4,7 +4,6 @@ import {
   type UseCurrencyExchangeBaseAndQuoteDataParams,
 } from "@/hooks/useCurrencyData";
 import {
-  useGetCurrencyPair,
   useSetCurrencyBase,
   useSetCurrencyPair,
   useSetCurrencyQuote,

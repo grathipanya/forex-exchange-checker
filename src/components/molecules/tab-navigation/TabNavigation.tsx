@@ -9,7 +9,7 @@ export type TabNavigationProps = {
 
 const TabNavigation = ({ tabs, activeTab, onTabChange, className }: TabNavigationProps) => {
   return (
-    <div className={cn("flex flex-row gap-0.5 w-full border-b-1 border-neutral-600", className)}>
+    <div className={cn("flex flex-row gap-0.5 w-full border-b border-neutral-600", className)}>
       {tabs.map((tab, index) => (
         <div
           key={index}
