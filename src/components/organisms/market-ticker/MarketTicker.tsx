@@ -24,7 +24,7 @@ const MarketTicker = () => {
       {/* Left Anchor */}
       <div className="shrink-0 bg-lime-500 flex items-center gap-1 px-4 py-2">
         <Label>
-          <div className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
+          <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
           <span className="text-preset-5-medium">Live Markets</span>
         </Label>
       </div>

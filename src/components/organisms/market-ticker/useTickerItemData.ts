@@ -3,6 +3,7 @@ import {
   useExchangeRatesByBaseAndQuote,
   useHistoricalExchangeRatesByBaseAndQuote,
 } from "@/hooks/useCurrencyData";
+import { getYesterdayDateString } from "@/utils/dates";
 
 interface UseTickerItemDataProps {
   base: string;
@@ -10,12 +11,6 @@ interface UseTickerItemDataProps {
 }
 
 export const useTickerItemData = ({ base, quote }: UseTickerItemDataProps) => {
-  const yesterdayDateString = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() - 1);
-    return d.toDateString();
-  }, []);
-
   const quotesArray = useMemo(() => [quote], [quote]);
 
   const { latestRateData, error: latestError } = useExchangeRatesByBaseAndQuote({
@@ -25,7 +20,7 @@ export const useTickerItemData = ({ base, quote }: UseTickerItemDataProps) => {
 
   const { latestHistoricalRateData: yesterdayData, error: historicalError } =
     useHistoricalExchangeRatesByBaseAndQuote({
-      date: yesterdayDateString,
+      date: getYesterdayDateString(),
       base: base,
       quotes: quotesArray,
     });
@@ -34,8 +29,8 @@ export const useTickerItemData = ({ base, quote }: UseTickerItemDataProps) => {
   const processedPair = useMemo(() => {
     if (!latestRateData || !yesterdayData) return null;
 
-    const latestItem = latestRateData[0];
-    const yesterdayItem = yesterdayData[0];
+    const latestItem = latestRateData[0] ? latestRateData[0] : { base, quote, rate: 0 };
+    const yesterdayItem = yesterdayData[0] ? yesterdayData[0] : { base, quote, rate: 0 };
 
     return {
       base,

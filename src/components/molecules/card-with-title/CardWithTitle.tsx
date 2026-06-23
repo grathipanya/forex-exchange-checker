@@ -1,4 +1,5 @@
 import { Card } from "@/components/atoms/card";
+import { Label } from "@/components/atoms/label";
 import { cn } from "@/utils/cn";
 import type { PropsWithChildren } from "react";
 
@@ -18,34 +19,22 @@ const CardWithTitle = ({
   className = "",
   titleClassName = "",
   info,
-  infoClassName = "",
+  infoClassName = "text-preset-5 text-neutral-50",
   children,
   footer,
 }: CardWithTitleProps) => {
   return (
     <Card className={cn(`flex flex-col gap-4`, className)}>
       {titleLocation === "outside" && (
-        <div
-          className={cn(
-            "text-preset-4 text-neutral-50 uppercase",
-            titleClassName,
-          )}
-        >
-          {title}
-        </div>
+        <div className={cn("text-preset-4 text-neutral-50 uppercase", titleClassName)}>{title}</div>
       )}
       <Card className={cn("bg-neutral-700 p-5 gap-5 flex flex-col", className)}>
         {titleLocation === "inside" && (
           <div className="flex justify-between">
-            <div
-              className={cn(
-                "text-preset-4 text-neutral-50 uppercase",
-                titleClassName,
-              )}
-            >
+            <div className={cn("text-preset-4 text-neutral-50 uppercase", titleClassName)}>
               {title}
             </div>
-            <div className={cn("flex items-center", infoClassName)}>{info}</div>
+            <Label className={cn("flex items-center", infoClassName)}>{info}</Label>
           </div>
         )}
         {children}

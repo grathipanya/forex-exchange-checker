@@ -20,9 +20,7 @@ const ConverterFooter = ({
 }: ConverterFooterProps) => {
   return (
     <div className="flex flex-row justify-between items-center w-full">
-      <Label className="text-preset-5 text-neutral-50">
-        {exchangeRateInfo}
-      </Label>
+      <Label className="text-preset-5 text-neutral-50">{exchangeRateInfo}</Label>
 
       <div className="flex flex-row gap-3">
         <ButtonIcon
@@ -35,7 +33,6 @@ const ConverterFooter = ({
           text={isFavourite ? "Favourited" : "Favourite"}
           onClick={() => {
             onFavouriteToggle();
-            console.log("Toggled Favourite");
           }}
         />
         <Button

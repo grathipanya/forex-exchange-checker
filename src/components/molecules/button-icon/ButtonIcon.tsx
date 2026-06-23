@@ -8,6 +8,7 @@ export type ButtonIconProps = {
   leadingIcon?: boolean;
   onClick?: () => void;
   className?: string;
+  iconClassName?: string;
   blackIcon?: boolean;
 } & ButtonProps;
 
@@ -16,6 +17,7 @@ const ButtonIcon = ({
   leadingIcon,
   onClick,
   className,
+  iconClassName,
   text,
   blackIcon,
 }: ButtonIconProps) => {
@@ -27,13 +29,10 @@ const ButtonIcon = ({
         <Image
           src={icon}
           alt="Button Icon"
-          className={cn("h-5 w-5", blackIcon && "brightness-0")}
+          className={cn("h-5 w-5", blackIcon && "brightness-0", iconClassName)}
         />
       }
-      className={cn(
-        !leadingIcon && "flex flex-row gap-2 items-center px-3 py-2",
-        className,
-      )}
+      className={cn(!leadingIcon && "flex flex-row gap-2 items-center px-3 py-2", className)}
     />
   );
 };

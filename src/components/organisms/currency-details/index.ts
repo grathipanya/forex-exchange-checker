@@ -1,3 +1,3 @@
 import CurrencyDetails from "./CurrencyDetails";
-
-export { CurrencyDetails };
+import { useCurrencyDetailsData } from "./useCurrencyDetailsData";
+export { CurrencyDetails, useCurrencyDetailsData };

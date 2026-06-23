@@ -13,9 +13,7 @@ export type ConverterCurrencyFieldProps = {
   selectedCurrency: CurrencyPickerModalProps["selectedCurrency"];
   amount: number | string;
   setAmount: (amount: string) => void;
-  setSelectedCurrency: (
-    currency: CurrencyPickerModalProps["selectedCurrency"],
-  ) => void;
+  setSelectedCurrency: (currency: CurrencyPickerModalProps["selectedCurrency"]) => void;
 };
 
 const ConverterCurrencyField = ({
@@ -38,22 +36,22 @@ const ConverterCurrencyField = ({
       <CardWithTitle
         title={label}
         titleLocation="inside"
-        className="bg-neutral-600 w-full"
-      >
+        className="bg-neutral-600 w-full">
         <div className="flex flex-row justify-between items-baseline">
           <EditLabel
             className={cn("text-preset-1 text-neutral-200", valueLabelStyle)}
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          >
+            onChange={(e) => setAmount(e.target.value)}>
             {amount}
           </EditLabel>
-          <div className="relative inline-block" ref={buttonRef}>
+          <div
+            className="relative inline-block"
+            ref={buttonRef}>
             <CurrencyPicker
               selectedCurrency={selectedCurrency}
               selectedCountryCode={
-                availableCurrencies.find((c) => c.iso_code === selectedCurrency)
-                  ?.country_code || "AED"
+                availableCurrencies.find((c) => c.iso_code === selectedCurrency)?.country_code ||
+                "AED"
               }
               onCurrencyChange={setSelectedCurrency}
               availableCurrencies={availableCurrencies}

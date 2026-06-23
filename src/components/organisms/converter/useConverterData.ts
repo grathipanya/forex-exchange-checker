@@ -3,6 +3,14 @@ import {
   useExchangeRatesByBaseAndQuote,
   type UseCurrencyExchangeBaseAndQuoteDataParams,
 } from "@/hooks/useCurrencyData";
+import {
+  useGetCurrencyPair,
+  useSetCurrencyBase,
+  useSetCurrencyPair,
+  useSetCurrencyQuote,
+} from "@/stores/useCurrencyStore";
+import { useFavouriteStore, useIsFavourite } from "@/stores/useFavouriteStore";
+import type { CountryCode } from "@/types/currency";
 import { useMemo } from "react";
 
 type ConverterDataProps = UseCurrencyExchangeBaseAndQuoteDataParams & {
@@ -60,16 +68,24 @@ export const useConverterData = ({
 
     const rateInfo = exchangeRatesData[0];
 
-    const sendToReceive = sendAmount
-      ? (sendAmount * rateInfo.rate).toFixed(2)
-      : "0";
+    const sendToReceive = sendAmount ? (sendAmount * rateInfo.rate).toFixed(2) : "0";
 
-    const receiveToSend = receiveAmount
-      ? (receiveAmount / rateInfo.rate).toFixed(2)
-      : "0";
+    const receiveToSend = receiveAmount ? (receiveAmount / rateInfo.rate).toFixed(2) : "0";
 
     return { sendToReceive, receiveToSend };
   }, [exchangeRatesData, sendAmount, receiveAmount]);
+
+  const isPairFavourite = useIsFavourite({
+    base: baseCurrency as CountryCode,
+    quote: quoteCurrency as CountryCode,
+  });
+
+  const addFavourite = useFavouriteStore((state) => state.addFavourite);
+  const removeFavourite = useFavouriteStore((state) => state.removeFavourite);
+
+  const setSelectedCurrencyBase = useSetCurrencyBase();
+  const setSelectedCurrencyQuote = useSetCurrencyQuote();
+  const setSelectedCurrencyPair = useSetCurrencyPair();
 
   return {
     availableCurrencies,
@@ -77,5 +93,11 @@ export const useConverterData = ({
     exchangeRateInfo,
     conversionAmount,
     exchangeRate,
+    isPairFavourite,
+    addFavourite,
+    removeFavourite,
+    setSelectedCurrencyBase,
+    setSelectedCurrencyQuote,
+    setSelectedCurrencyPair,
   };
 };

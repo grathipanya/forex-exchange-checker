@@ -91,19 +91,18 @@ const HistoryChart = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex justify-between items-center pt-5">
+      <div className="flex justify-between items-center">
         <div className="grid grid-cols-4 gap-4">
           {HARDCDODED_CARDS_DATA.map((card) => (
-            <CardWithTitle key={card.title} titleLocation="inside" {...card}>
+            <CardWithTitle
+              key={card.title}
+              titleLocation="inside"
+              {...card}>
               <Label
                 className={cn(
                   "text-preset-2 text-neutral-50",
-                  card.colored &&
-                    (isValuePositive(card.value)
-                      ? "text-green-500"
-                      : "text-red-500"),
-                )}
-              >
+                  card.colored && (isValuePositive(card.value) ? "text-green-500" : "text-red-500"),
+                )}>
                 {card.showSymbol && getDifferenceIcon(card.value)} {card.value}
               </Label>
             </CardWithTitle>
@@ -119,8 +118,7 @@ const HistoryChart = () => {
                   ? "bg-neutral-500 text-neutral-50"
                   : "bg-transparent text-neutral-200",
               )}
-              onClick={() => setSelectedRange(option)}
-            >
+              onClick={() => setSelectedRange(option)}>
               <Label>{option}</Label>
             </Card>
           ))}
@@ -130,14 +128,10 @@ const HistoryChart = () => {
         <CardWithTitle
           titleLocation="inside"
           title={
-            HARDCODED_GRAPH_DATA.currencyPair.base +
-            "/" +
-            HARDCODED_GRAPH_DATA.currencyPair.quote
+            HARDCODED_GRAPH_DATA.currencyPair.base + "/" + HARDCODED_GRAPH_DATA.currencyPair.quote
           }
           titleClassName="text-preset-3-medium text-neutral-50"
-          info={formatGraphInfoHeader(HARDCODED_GRAPH_DATA)}
-          infoClassName="text-preset-5 text-neutral-50"
-        >
+          info={formatGraphInfoHeader(HARDCODED_GRAPH_DATA)}>
           big boy graph here
         </CardWithTitle>
       </div>

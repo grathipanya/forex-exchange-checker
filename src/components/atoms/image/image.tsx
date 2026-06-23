@@ -8,14 +8,7 @@ export type ImageProps = {
   onLoad?: () => void;
 };
 
-const Image = ({
-  src,
-  alt,
-  className,
-  onError,
-  onLoad,
-  ...props
-}: ImageProps) => (
+const Image = ({ src, alt, className, onError, onLoad, ...props }: ImageProps) => (
   <img
     src={src}
     alt={alt}

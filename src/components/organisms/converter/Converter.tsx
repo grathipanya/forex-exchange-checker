@@ -3,44 +3,45 @@ import { CardWithTitle } from "@/components/molecules/card-with-title";
 import { useConverterData } from "./useConverterData";
 import { ConverterCurrencyField } from "@/components/molecules/converter-currency-field";
 import { useState } from "react";
-import type { Currency } from "@/types/currency";
+import type { CountryCode } from "@/types/currency";
 import { ButtonIcon } from "@/components/molecules/button-icon";
-import { ConverterFooter } from "@/components/molecules/converter-footer"; // 1. Import new molecule
+import { ConverterFooter } from "@/components/molecules/converter-footer";
+import { useGetCurrencyPair } from "@/stores/useCurrencyStore";
 
 const Converter = () => {
-  // TODO add local states to track favourite pairs and conversion log
-  // Currently just default to false
-  const [isFavourite, setIsFavourite] = useState(false);
-  const [sendCurrency, setSendCurrency] = useState<Currency["iso_code"]>("AED");
-  const [receiveCurrency, setReceiveCurrency] =
-    useState<Currency["iso_code"]>("AED");
   const [sendAmount, setSendAmount] = useState("0");
   const [receiveAmount, setReceiveAmount] = useState("0");
-  const [lastEditedAmount, setLastEditedAmount] = useState<
-    "send" | "receive" | "swap"
-  >("send");
+  const [lastEditedAmount, setLastEditedAmount] = useState<"send" | "receive" | "swap">("send");
+
+  const { base, quote } = useGetCurrencyPair() || { base: "AED", quote: "AED" };
 
   const {
     availableCurrencies,
     exchangeRateInfo,
     conversionAmount: { sendToReceive, receiveToSend },
     exchangeRate,
+    addFavourite,
+    removeFavourite,
+    isPairFavourite,
+    setSelectedCurrencyBase,
+    setSelectedCurrencyQuote,
+    setSelectedCurrencyPair,
   } = useConverterData({
-    baseCurrency: sendCurrency,
-    quoteCurrency: receiveCurrency,
+    baseCurrency: base,
+    quoteCurrency: quote,
     sendAmount: parseFloat(sendAmount),
     receiveAmount: parseFloat(receiveAmount),
   });
 
-  const displayedSendAmount =
-    lastEditedAmount !== "send" ? receiveToSend : sendAmount;
-  const displayedReceiveAmount =
-    lastEditedAmount !== "receive" ? sendToReceive : receiveAmount;
+  const displayedSendAmount = lastEditedAmount !== "send" ? receiveToSend : sendAmount;
+  const displayedReceiveAmount = lastEditedAmount !== "receive" ? sendToReceive : receiveAmount;
 
   const handleSwap = () => {
     setLastEditedAmount("swap");
-    setSendCurrency(receiveCurrency);
-    setReceiveCurrency(sendCurrency);
+    setSelectedCurrencyPair({
+      base: quote as CountryCode,
+      quote: base as CountryCode,
+    });
     setSendAmount(receiveAmount);
     setReceiveAmount(sendAmount);
   };
@@ -54,7 +55,7 @@ const Converter = () => {
   const handleReceiveAmountChange = (amount: string) => {
     setLastEditedAmount("receive");
     setReceiveAmount(amount);
-    setSendAmount((parseFloat(amount) / exchangeRate).toString());
+    setSendAmount((parseFloat(amount) / exchangeRate).toFixed(2));
   };
 
   return (
@@ -63,21 +64,30 @@ const Converter = () => {
       footer={
         <ConverterFooter
           exchangeRateInfo={exchangeRateInfo}
-          isFavourite={isFavourite}
-          onFavouriteToggle={() => setIsFavourite(!isFavourite)}
+          isFavourite={isPairFavourite}
+          onFavouriteToggle={() =>
+            isPairFavourite
+              ? removeFavourite({
+                  base: base as CountryCode,
+                  quote: quote as CountryCode,
+                })
+              : addFavourite({
+                  base: base as CountryCode,
+                  quote: quote as CountryCode,
+                })
+          }
           onLogConversion={() => console.log("Logged")}
         />
-      }
-    >
+      }>
       {/* Send */}
-      <div className="flex flex-row justify-between items-center gap-6">
+      <div className="flex flex-col xl:flex-row justify-between items-center gap-6">
         <ConverterCurrencyField
           label="Send"
           availableCurrencies={availableCurrencies}
-          selectedCurrency={sendCurrency}
+          selectedCurrency={base}
           amount={displayedSendAmount}
           setAmount={handleSendAmountChange}
-          setSelectedCurrency={setSendCurrency}
+          setSelectedCurrency={(currency) => setSelectedCurrencyBase(currency as CountryCode)}
         />
 
         {/* Switch */}
@@ -92,10 +102,10 @@ const Converter = () => {
         <ConverterCurrencyField
           label="Receive"
           availableCurrencies={availableCurrencies}
-          selectedCurrency={receiveCurrency}
+          selectedCurrency={quote}
           amount={displayedReceiveAmount}
           setAmount={handleReceiveAmountChange}
-          setSelectedCurrency={setReceiveCurrency}
+          setSelectedCurrency={(currency) => setSelectedCurrencyQuote(currency as CountryCode)}
         />
       </div>
     </CardWithTitle>

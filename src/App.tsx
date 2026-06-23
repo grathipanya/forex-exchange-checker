@@ -13,7 +13,7 @@ function App() {
       <Layout>
         {/* Main content goes here */}
         <Converter />
-        <CurrencyDetails text="Currency Details" />
+        <CurrencyDetails />
       </Layout>
     </div>
   );
