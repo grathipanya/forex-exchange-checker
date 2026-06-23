@@ -31,9 +31,7 @@ const ConverterFooter = ({
           )}
           icon={isFavourite ? IconStarFilled : IconStar}
           text={isFavourite ? "Favourited" : "Favourite"}
-          onClick={() => {
-            onFavouriteToggle();
-          }}
+          onClick={onFavouriteToggle}
         />
         <Button
           className="text-preset-5-medium text-neutral-50"

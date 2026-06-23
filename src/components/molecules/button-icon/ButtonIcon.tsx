@@ -32,7 +32,10 @@ const ButtonIcon = ({
           className={cn("h-5 w-5", blackIcon && "brightness-0", iconClassName)}
         />
       }
-      className={cn(!leadingIcon && "flex flex-row gap-2 items-center px-3 py-2", className)}
+      className={cn(
+        !leadingIcon && "flex flex-row gap-2 items-center px-3 py-2 bg-unset",
+        className,
+      )}
     />
   );
 };

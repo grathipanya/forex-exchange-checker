@@ -3,7 +3,7 @@ import { CardWithTitle } from "@/components/molecules/card-with-title";
 import { useConverterData } from "./useConverterData";
 import { ConverterCurrencyField } from "@/components/molecules/converter-currency-field";
 import { useState } from "react";
-import type { CountryCode } from "@/types/currency";
+import type { CountryCode, DateTimeString } from "@/types/currency";
 import { ButtonIcon } from "@/components/molecules/button-icon";
 import { ConverterFooter } from "@/components/molecules/converter-footer";
 import { useGetCurrencyPair } from "@/stores/useCurrencyStore";
@@ -26,6 +26,7 @@ const Converter = () => {
     setSelectedCurrencyBase,
     setSelectedCurrencyQuote,
     setSelectedCurrencyPair,
+    logConversion,
   } = useConverterData({
     baseCurrency: base,
     quoteCurrency: quote,
@@ -76,7 +77,15 @@ const Converter = () => {
                   quote: quote as CountryCode,
                 })
           }
-          onLogConversion={() => console.log("Logged")}
+          onLogConversion={() =>
+            logConversion({
+              base: base as CountryCode,
+              quote: quote as CountryCode,
+              baseAmount: parseFloat(sendAmount),
+              quoteAmount: parseFloat(receiveAmount),
+              timestamp: new Date().toISOString() as DateTimeString,
+            })
+          }
         />
       }>
       {/* Send */}

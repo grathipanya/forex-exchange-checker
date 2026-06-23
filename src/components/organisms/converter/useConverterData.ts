@@ -3,6 +3,7 @@ import {
   useExchangeRatesByBaseAndQuote,
   type UseCurrencyExchangeBaseAndQuoteDataParams,
 } from "@/hooks/useCurrencyData";
+import { useConversionStore } from "@/stores/useConversionStore";
 import {
   useSetCurrencyBase,
   useSetCurrencyPair,
@@ -86,6 +87,8 @@ export const useConverterData = ({
   const setSelectedCurrencyQuote = useSetCurrencyQuote();
   const setSelectedCurrencyPair = useSetCurrencyPair();
 
+  const logConversion = useConversionStore((state) => state.addConversion);
+
   return {
     availableCurrencies,
     exchangeRatesData,
@@ -98,5 +101,6 @@ export const useConverterData = ({
     setSelectedCurrencyBase,
     setSelectedCurrencyQuote,
     setSelectedCurrencyPair,
+    logConversion,
   };
 };
