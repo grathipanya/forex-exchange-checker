@@ -90,6 +90,7 @@ export const useConverterData = ({
   const logConversion = useConversionStore((state) => state.addConversion);
 
   return {
+    currencyData,
     availableCurrencies,
     exchangeRatesData,
     exchangeRateInfo,

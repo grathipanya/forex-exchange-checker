@@ -6,6 +6,8 @@ import type { PropsWithChildren } from "react";
 export type CardWithTitleProps = PropsWithChildren<{
   title: string;
   titleLocation?: "inside" | "outside";
+  subHeader?: string;
+  subHeaderClassName?: string;
   info?: string;
   className?: string;
   titleClassName?: string;
@@ -17,6 +19,8 @@ export type CardWithTitleProps = PropsWithChildren<{
 const CardWithTitle = ({
   title,
   titleLocation = "outside",
+  subHeader,
+  subHeaderClassName,
   className = "",
   titleClassName = "",
   info,
@@ -33,7 +37,13 @@ const CardWithTitle = ({
       <Card className={cn("bg-neutral-700 p-5 gap-5 flex flex-col", className)}>
         {titleLocation === "inside" && (
           <div className="flex justify-between items-center">
-            <div className={cn("text-preset-4 text-neutral-50 uppercase", titleClassName)}>
+            <div
+              className={cn("flex gap-3 text-preset-4 text-neutral-50 uppercase", titleClassName)}>
+              {subHeader && (
+                <Label className={cn("text-preset-4 text-neutral-200", subHeaderClassName)}>
+                  {subHeader}
+                </Label>
+              )}
               {title}
             </div>
             <div className={cn("flex items-center gap-4", infoClassName)}>

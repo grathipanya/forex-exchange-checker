@@ -89,7 +89,7 @@ const Converter = () => {
         />
       }>
       {/* Send */}
-      <div className="flex flex-col xl:flex-row justify-between items-center gap-6">
+      <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
         <ConverterCurrencyField
           label="Send"
           availableCurrencies={availableCurrencies}

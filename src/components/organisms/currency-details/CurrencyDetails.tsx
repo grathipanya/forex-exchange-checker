@@ -6,11 +6,12 @@ import { lazy, useState } from "react";
 
 // Lazy load modules
 const HistoryChart = lazy(() => import("../history-chart/HistoryChart"));
+const Comparison = lazy(() => import("../comparison/Comparison"));
 const Favourites = lazy(() => import("../favourites/Favourites"));
 const ConversionLog = lazy(() => import("../conversion-log/ConversionLog"));
 
 const CurrencyDetails = () => {
-  const [activeTab, setActiveTab] = useState(3);
+  const [activeTab, setActiveTab] = useState(1);
 
   // TODO export to data hook and fetch real counts for favourites and log
   const DETAILS_TABS = [
@@ -29,6 +30,7 @@ const CurrencyDetails = () => {
       />
       <div className="mt-5">
         {activeTab === 0 && <HistoryChart />}
+        {activeTab === 1 && <Comparison />}
         {activeTab === 2 && <Favourites />}
         {activeTab === 3 && <ConversionLog />}
       </div>

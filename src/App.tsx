@@ -6,7 +6,7 @@ import { Layout } from "./components/templates/layout";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <MarketTicker />
 
@@ -15,7 +15,7 @@ function App() {
         <Converter />
         <CurrencyDetails />
       </Layout>
-    </div>
+    </>
   );
 }
 

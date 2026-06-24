@@ -1,11 +1,8 @@
 import { EditLabel } from "@/components/atoms/label";
 import { CardWithTitle } from "@/components/molecules/card-with-title";
-import { CurrencyPicker } from "@/components/molecules/currency-picker";
-import CurrencyPickerModal, {
-  type CurrencyPickerModalProps,
-} from "@/components/molecules/currency-picker-modal/CurrencyPickerModal";
+import { CurrencyPickerDropdown } from "@/components/molecules/currency-picker-dropdown";
+import type { CurrencyPickerModalProps } from "@/components/molecules/currency-picker-modal/CurrencyPickerModal";
 import { cn } from "@/utils/cn";
-import { useRef, useState } from "react";
 
 export type ConverterCurrencyFieldProps = {
   label: "Send" | "Receive";
@@ -24,11 +21,6 @@ const ConverterCurrencyField = ({
   setAmount,
   setSelectedCurrency,
 }: ConverterCurrencyFieldProps) => {
-  const [pos, setPos] = useState({ top: 0, right: 0 });
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const buttonRef = useRef<HTMLDivElement>(null);
-
   const valueLabelStyle = label === "Receive" ? "text-lime-500" : "";
 
   return (
@@ -44,38 +36,11 @@ const ConverterCurrencyField = ({
             onChange={(e) => setAmount(e.target.value)}>
             {amount}
           </EditLabel>
-          <div
-            className="relative inline-block"
-            ref={buttonRef}>
-            <CurrencyPicker
-              selectedCurrency={selectedCurrency}
-              selectedCountryCode={
-                availableCurrencies.find((c) => c.iso_code === selectedCurrency)?.country_code ||
-                "AED"
-              }
-              onCurrencyChange={setSelectedCurrency}
-              availableCurrencies={availableCurrencies}
-              onOpen={() => {
-                if (buttonRef.current) {
-                  const rect = buttonRef.current.getBoundingClientRect();
-
-                  setPos({
-                    top: rect.bottom,
-                    right: window.innerWidth - rect.right,
-                  });
-                }
-
-                setModalOpen((prev) => !prev);
-              }}
-            />
-            <CurrencyPickerModal
-              selectedCurrency={selectedCurrency}
-              onCurrencyChange={setSelectedCurrency}
-              availableCurrencies={availableCurrencies}
-              isOpen={modalOpen}
-              position={pos}
-            />
-          </div>
+          <CurrencyPickerDropdown
+            selectedCurrency={selectedCurrency}
+            onCurrencyChange={setSelectedCurrency}
+            availableCurrencies={availableCurrencies}
+          />
         </div>
       </CardWithTitle>
     </div>

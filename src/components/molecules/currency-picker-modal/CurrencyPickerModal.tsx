@@ -27,9 +27,9 @@ const CurrencyPickerModal = ({
 }: CurrencyPickerModalProps) => {
   const [searchInput, setSearchInput] = useState("");
 
-  const [imageLoadStatus, setImageLoadStatus] = useState<
-    Record<Currency["iso_code"], boolean>
-  >({} as Record<Currency["iso_code"], boolean>);
+  const [imageLoadStatus, setImageLoadStatus] = useState<Record<Currency["iso_code"], boolean>>(
+    {} as Record<Currency["iso_code"], boolean>,
+  );
 
   const popularCurrencies = ["USD", "EUR", "GBP"];
   const otherCurrencies = availableCurrencies.filter(
@@ -39,10 +39,7 @@ const CurrencyPickerModal = ({
     (currency) => imageLoadStatus[currency.iso_code],
   ).length;
 
-  const handleImageStatusChange = (
-    isoCode: Currency["iso_code"],
-    isLoaded: boolean,
-  ) => {
+  const handleImageStatusChange = (isoCode: Currency["iso_code"], isLoaded: boolean) => {
     setImageLoadStatus((prev) => {
       if (prev[isoCode] === isLoaded) {
         return prev;
@@ -59,65 +56,62 @@ const CurrencyPickerModal = ({
     <>
       {isOpen && (
         <div
-          className="fixed z-9999 bg-neutral-600 p-2 rounded-6 border border-neutral-400 mt-2"
+          className="fixed z-9999 bg-neutral-600 p-2 rounded-6 border border-neutral-400 mt-2 w-80"
           style={{
             top: position.top,
             right: position.right,
-          }}
-        >
+          }}>
           <SearchInput
             value={searchInput}
             label={"Search currencies..."}
             onChange={(value: string) => setSearchInput(value)}
           />
-          <div className="flex flex-col overflow-y-scroll max-h-75 no-scrollbar">
-            {popularCurrencies && (
+
+          <div className="flex flex-col max-h-75 overflow-y-auto no-scrollbar">
+            {popularCurrencies.length > 0 && (
               <div className="border-b border-neutral-500 p-2 text-preset-5 text-neutral-200 flex justify-between">
-                <Label className="">Popular</Label>
-                <Label>3</Label>
+                <Label>Popular</Label>
+                <Label>{popularCurrencies.length}</Label>
               </div>
             )}
+
             {availableCurrencies
-              .map((currency, key) => (
+              .filter((c) => popularCurrencies.includes(c.iso_code))
+              .map((currency) => (
                 <CurrencyPickerListItem
-                  key={key}
+                  key={currency.iso_code}
                   currency={currency}
                   selectedCurrency={selectedCurrency}
-                  setSelectedCurrency={(selected) => onCurrencyChange(selected)}
+                  setSelectedCurrency={onCurrencyChange}
                   onImageStatusChange={handleImageStatusChange}
                 />
-              ))
-              .filter((c) =>
-                popularCurrencies.includes(c.props.currency.iso_code),
-              )}
+              ))}
 
             {otherCurrencies.length > 0 && (
               <div className="border-b border-neutral-500 p-2 text-preset-5 text-neutral-200 flex justify-between">
-                <Label className="">Other Currencies</Label>
+                <Label>Other Currencies</Label>
                 <Label>{loadedOtherCurrenciesCount}</Label>
               </div>
             )}
+
             {otherCurrencies
-              .map((currency, key) => (
-                <CurrencyPickerListItem
-                  key={key}
-                  currency={currency}
-                  selectedCurrency={selectedCurrency}
-                  setSelectedCurrency={(selected) => onCurrencyChange(selected)}
-                  onImageStatusChange={handleImageStatusChange}
-                />
-              ))
-              .filter((c) => {
+              .filter((currency) => {
                 if (!searchInput) return true;
                 const searchTerm = searchInput.toLowerCase();
-                const searchMatchesIsoCode = c.props.currency.iso_code
-                  .toLowerCase()
-                  .includes(searchTerm);
-                const searchMatchesName = c.props.currency.name
-                  .toLowerCase()
-                  .includes(searchTerm);
-                return searchMatchesIsoCode || searchMatchesName;
-              })}
+                return (
+                  currency.iso_code.toLowerCase().includes(searchTerm) ||
+                  currency.name.toLowerCase().includes(searchTerm)
+                );
+              })
+              .map((currency) => (
+                <CurrencyPickerListItem
+                  key={currency.iso_code}
+                  currency={currency}
+                  selectedCurrency={selectedCurrency}
+                  setSelectedCurrency={onCurrencyChange}
+                  onImageStatusChange={handleImageStatusChange}
+                />
+              ))}
           </div>
         </div>
       )}
