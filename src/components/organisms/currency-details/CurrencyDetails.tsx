@@ -11,7 +11,7 @@ const Favourites = lazy(() => import("../favourites/Favourites"));
 const ConversionLog = lazy(() => import("../conversion-log/ConversionLog"));
 
 const CurrencyDetails = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
 
   // TODO export to data hook and fetch real counts for favourites and log
   const DETAILS_TABS = [

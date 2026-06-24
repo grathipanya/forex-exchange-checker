@@ -41,6 +41,21 @@ export const ratesApi = {
     );
     return response.json();
   },
+
+  async getHistoricalExchangeRatesByBaseAndQuoteFromDate({
+    date,
+    base,
+    quotes,
+  }: {
+    date: string;
+    base: string;
+    quotes: string[];
+  }): Promise<Rate[]> {
+    const response = await fetch(
+      `${DEFAULT_BASE_URL}rates?from=${date}&base=${base}&quotes=${quotes.join(",")}`,
+    );
+    return response.json();
+  },
 };
 
 export const currenciesApi = {
