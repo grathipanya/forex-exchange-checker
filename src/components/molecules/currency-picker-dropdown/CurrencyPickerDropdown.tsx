@@ -32,7 +32,6 @@ const CurrencyPickerDropdown = ({
       <CurrencyPicker
         selectedCurrency={selectedCurrency}
         selectedCountryCode={selectedCountryCode}
-        onCurrencyChange={onCurrencyChange}
         availableCurrencies={availableCurrencies}
         onOpen={() => {
           if (buttonRef.current) {

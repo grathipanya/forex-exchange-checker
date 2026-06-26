@@ -8,28 +8,35 @@ export type CurrencyPair = {
 };
 
 export type CurrencyStore = {
-  selectedCurrencyPair: CurrencyPair | null;
+  selectedCurrencyPair: CurrencyPair;
   setSelectedCurrencyPair: (pair: CurrencyPair) => void;
   setSelectedCurrencyBase: (base: CountryCode) => void;
   setSelectedCurrencyQuote: (quote: CountryCode) => void;
 };
 
+const DEFAULT_CURRENCY_PAIR: CurrencyPair = {
+  base: "AED",
+  quote: "AED",
+};
+
 export const useCurrencyStore = create<CurrencyStore>()(
   persist(
     (set) => ({
-      selectedCurrencyPair: null,
+      selectedCurrencyPair: DEFAULT_CURRENCY_PAIR,
       setSelectedCurrencyPair: (pair) => set({ selectedCurrencyPair: pair }),
       setSelectedCurrencyBase: (base) =>
         set((state) => ({
-          selectedCurrencyPair: state.selectedCurrencyPair
-            ? { ...state.selectedCurrencyPair, base }
-            : null,
+          selectedCurrencyPair: {
+            ...(state.selectedCurrencyPair ?? DEFAULT_CURRENCY_PAIR),
+            base,
+          },
         })),
       setSelectedCurrencyQuote: (quote) =>
         set((state) => ({
-          selectedCurrencyPair: state.selectedCurrencyPair
-            ? { ...state.selectedCurrencyPair, quote }
-            : null,
+          selectedCurrencyPair: {
+            ...(state.selectedCurrencyPair ?? DEFAULT_CURRENCY_PAIR),
+            quote,
+          },
         })),
     }),
     {

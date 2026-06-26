@@ -13,7 +13,7 @@ const Converter = () => {
   const [receiveAmount, setReceiveAmount] = useState("0");
   const [lastEditedAmount, setLastEditedAmount] = useState<"send" | "receive" | "swap">("send");
 
-  const { base, quote } = useGetCurrencyPair() || { base: "AED", quote: "AED" };
+  const { base, quote } = useGetCurrencyPair();
 
   const {
     availableCurrencies,

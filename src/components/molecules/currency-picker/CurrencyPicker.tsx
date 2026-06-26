@@ -6,7 +6,7 @@ import type { Currency } from "@/types/currency";
 export type CurrencyPickerProps = {
   selectedCurrency: Currency["iso_code"];
   selectedCountryCode: string;
-  onCurrencyChange: (currency: Currency["iso_code"]) => void;
+  onCurrencyChange?: (currency: Currency["iso_code"]) => void;
   //iso code is AUD, USD, JPY | country_code is iso_code minus the currency, e.g AU, US, JP
   availableCurrencies: {
     iso_code: Currency["iso_code"];
@@ -16,11 +16,7 @@ export type CurrencyPickerProps = {
   onOpen: () => void;
 };
 
-const CurrencyPicker = ({
-  selectedCurrency,
-  selectedCountryCode,
-  onOpen,
-}: CurrencyPickerProps) => {
+const CurrencyPicker = ({ selectedCurrency, selectedCountryCode, onOpen }: CurrencyPickerProps) => {
   return (
     <>
       <Button

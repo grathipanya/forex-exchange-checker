@@ -27,7 +27,10 @@ const CurrencyPickerListItem = ({
     !imageBroken && (
       <button
         className="w-full text-left px-3 py-2 rounded-6 hover:bg-neutral-100"
-        onClick={() => setSelectedCurrency(currency.iso_code)}>
+        onClick={() => {
+          console.log(currency.iso_code);
+          setSelectedCurrency(currency.iso_code);
+        }}>
         <div className="flex items-center align-center justify-between">
           <div className="flex gap-3 items-center align-center">
             <FlagIcon
